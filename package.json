@@ -1,0 +1,31 @@
+{
+  "name": "app-config-lite",
+  "version": "1.0.0",
+  "description": "Module for easily loading application settings from file or environment.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axleonard/app-config-lite.git"
+  },
+  "keywords": [
+    "settings",
+    "configuration"
+  ],
+  "author": "AJ Leonard",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "mocha": "^3.4.2",
+    "mock-fs": "^4.4.1"
+  }
+}
