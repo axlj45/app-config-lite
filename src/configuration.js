@@ -9,7 +9,7 @@ class Config extends EventEmitter {
     if (!instance) {
       instance = this;
     }
-    this.data = {};
+    this._data = {};
     this.configResolver = new ConfigResolver(appName, configName);
     return instance;
   }
@@ -23,17 +23,17 @@ class Config extends EventEmitter {
       return value;
     }
 
-    return _.get(this.data, path);
+    return _.get(this._data, path);
   }
 
   set(path, value) {
-    return _.set(this.data, path, value);
+    return _.set(this._data, path, value);
   }
 
   load(configPath) {
     try {
-      this.data = this.configResolver.resolveConfig(configPath);
-      this.emit('loaded', this.data.self_path);
+      this._data = this.configResolver.resolveConfig(configPath);
+      this.emit('loaded', this._data.self_path);
     } catch (err) {
       this.emit('error', err.message);
     }
