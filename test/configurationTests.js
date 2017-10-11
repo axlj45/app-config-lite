@@ -58,7 +58,39 @@ describe('Configuration', () => {
 
     process.env.CONFIGDATA = 'env_data';
     const envSetting = sut.get('configData');
-    delete process.env.configData;
+    delete process.env.CONFIGDATA;
     expect(envSetting).to.equal('env_data');
+  });
+
+  it('should not persist to disk by default', () => {
+    const control = configuration.init('test-app');
+    control.load();
+
+    const fileSetting = control.get('configData');
+    expect(fileSetting).to.equal('value');
+
+    control.set('configData', 'newValue');
+    const newSetting = control.get('configData');
+    expect(newSetting).to.equal('newValue');
+
+    const sut = configuration.init('test-app');
+    expect(sut.get('configData'), 'value');
+  });
+
+  it('should persist configuration settings to disk when save is called', () => {
+    const control = configuration.init('test-app');
+    control.load();
+
+    const fileSetting = control.get('configData');
+    expect(fileSetting).to.equal('value');
+
+    control.set('configData', 'newValue');
+
+    control.save();
+
+    const sut = configuration.init('test-app');
+    sut.load();
+
+    expect(sut.get('configData')).to.equal('newValue');
   });
 });
