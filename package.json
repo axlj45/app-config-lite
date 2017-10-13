@@ -1,6 +1,6 @@
 {
   "name": "app-config-lite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Module for easily loading application settings from file or environment.",
   "main": "index.js",
   "scripts": {
