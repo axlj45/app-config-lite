@@ -1,10 +1,11 @@
 {
   "name": "app-config-lite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Module for easily loading application settings from file or environment.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test:watch": "mocha --watch"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,11 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "chai": "^4.1.0",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
+    "chai": "^4.1.2",
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb-base": "^12.0.2",
     "eslint-plugin-import": "^2.7.0",
-    "mocha": "^3.4.2",
+    "mocha": "^4.0.1",
     "mock-fs": "^4.4.1"
   }
 }

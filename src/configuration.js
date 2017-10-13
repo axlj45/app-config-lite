@@ -1,6 +1,9 @@
 const _ = require('lodash');
-const EventEmitter = require('events').EventEmitter;
+const events = require('events');
 const ConfigResolver = require('./configResolver');
+const fs = require('fs');
+
+const EventEmitter = events.EventEmitter;
 
 let instance = null;
 class Config extends EventEmitter {
@@ -34,6 +37,16 @@ class Config extends EventEmitter {
     try {
       this._data = this.configResolver.resolveConfig(configPath);
       this.emit('loaded', this._data.self_path);
+    } catch (err) {
+      this.emit('error', err.message);
+    }
+  }
+
+  save() {
+    const path = this._data.self_path;
+    try {
+      fs.writeFileSync(path, JSON.stringify(this._data));
+      this.emit('saved', this._data.self_path);
     } catch (err) {
       this.emit('error', err.message);
     }
