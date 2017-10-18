@@ -45,7 +45,7 @@ class Config extends EventEmitter {
   save() {
     const path = this._data.self_path;
     try {
-      fs.writeFileSync(path, JSON.stringify(this._data));
+      fs.writeFileSync(path, JSON.stringify(this._data, null, 2));
       this.emit('saved', this._data.self_path);
     } catch (err) {
       this.emit('error', err.message);
