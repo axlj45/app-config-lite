@@ -15,8 +15,7 @@
     "semantic-release": "semantic-release"
   },
   "files": [
-    "dist",
-    "!*.js.map"
+    "dist"
   ],
   "keywords": [
     "settings",

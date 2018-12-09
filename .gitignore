@@ -16,10 +16,7 @@ coverage/
 *.gz
 *.tmp
 *.bak
+
 logs/
 build/
-
-tests/integration-tests/reports/
-reports/
 dist/
-coverage

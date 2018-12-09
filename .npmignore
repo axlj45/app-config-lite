@@ -1,7 +1,5 @@
-test/
 .vscode/
 .editorconfig
 .npmignore
 .eslintrc.yml
 .gitignore
-
