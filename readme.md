@@ -2,6 +2,7 @@
 
 A simple library for loading application settings from the environment or a configuration file.
 
+[![Build Status](https://travis-ci.org/axlj45/app-config-lite.svg?branch=master)](https://travis-ci.org/axlj45/app-config-lite)
 
 ```js
 const Configuration = require('app-config-lite');
