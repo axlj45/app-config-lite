@@ -1,7 +1,1 @@
-{
-  "name": "example configuation file",
-  "complexExample": {
-    "data": true,
-    "moreData": 1
-  }
-}
+{}

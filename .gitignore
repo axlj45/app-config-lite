@@ -21,4 +21,5 @@ build/
 
 tests/integration-tests/reports/
 reports/
-Ï
+dist/
+coverage

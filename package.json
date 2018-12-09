@@ -1,32 +1,69 @@
 {
-  "name": "app-config-lite",
-  "version": "1.1.1",
-  "description": "Module for easily loading application settings from file or environment.",
-  "main": "index.js",
+  "name": "app-config-lite-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "typings": "dist/types/index.d.ts",
   "scripts": {
-    "test": "mocha",
-    "test:watch": "mocha --watch"
+    "build": "tsc",
+    "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/axleonard/app-config-lite.git"
-  },
-  "keywords": [
-    "settings",
-    "configuration"
+  "files": [
+    "dist"
   ],
-  "author": "AJ Leonard",
-  "license": "MIT",
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "mkdirp": "^0.5.1"
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json",
+      "node"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "collectCoverageFrom": [
+      "!dist/**/*.{ts,js}",
+      "src/**/*.{ts,js}",
+      "!dist/**/*.d.ts"
+    ],
+    "collectCoverage": true
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "mocha": "^4.0.1",
-    "mock-fs": "^4.4.2"
+    "@types/jest": "^23.3.10",
+    "@types/lodash": "^4.14.118",
+    "@types/mkdirp": "^0.5.2",
+    "@types/mock-fs": "^3.6.30",
+    "@types/node": "^10.12.12",
+    "jest": "^23.6.0",
+    "mock-fs": "^4.7.0",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1"
   }
 }
