@@ -1,7 +1,11 @@
 {
-  "name": "app-config-lite-ts",
-  "version": "1.0.0",
-  "description": "",
+  "name": "app-config-lite",
+  "version": "1.1.1",
+  "description": "Module for easily loading application settings from file or environment.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axlj45/app-config-lite.git"
+  },
   "main": "dist/index.js",
   "typings": "dist/types/index.d.ts",
   "scripts": {
@@ -11,8 +15,12 @@
   "files": [
     "dist"
   ],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "settings",
+    "configuration"
+  ],
+  "author": "AJ Leonard",
+  "license": "MIT",
   "jest": {
     "transform": {
       ".(ts|tsx)": "ts-jest"
