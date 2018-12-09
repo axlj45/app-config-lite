@@ -1,5 +1,5 @@
-import { Configuration } from "./configuration";
-import { ConfigResolver } from "./configResolver";
+import { Configuration } from "./Configuration";
+import { ConfigResolver } from "./ConfigResolver";
 
 export class AppConfigLite {
     private static _instance: undefined | Configuration = undefined;
