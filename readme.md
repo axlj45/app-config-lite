@@ -5,14 +5,13 @@ A simple library for loading application settings from the environment or a conf
 [![Build Status](https://travis-ci.org/axlj45/app-config-lite.svg?branch=master)](https://travis-ci.org/axlj45/app-config-lite)
 
 ```js
-const Configuration = require('app-config-lite');
+const { AppConfigLite } = require('app-config-lite');
 
-const config = Configuration.init('app-name');
+const config = AppConfigLite.init('app-name');
 
 config.set('transient-setting', 'value');
 
 const setting = config.get('transient-setting');
-
 ```
 
 ## Installation
@@ -25,14 +24,16 @@ $ npm install --save app-config-lite
 
 Initialize app-config-lite in your application's start up file.
 ```js
-const Configuration = require('app-config-lite');
+const { AppConfigLite } = require('app-config-lite');
 
-const config = Configuration.init('app-name');
+const config = AppConfigLite.init('app-name');
 ```
 
 Once initialized, app-config-lite behaves as a singleton.  A reference to your configuration can be access via
 ```js
-config.instance();
+const { AppConfigLite } = require('app-config-lite');
+
+const config = AppConfigLite.Instance;
 ```
 
 By default, a configuration file is generated in the home directory of the user running the application:
