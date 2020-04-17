@@ -61,21 +61,21 @@
     "singleQuote": true
   },
   "devDependencies": {
-    "@types/jest": "^23.3.10",
-    "@types/lodash": "^4.14.118",
+    "@types/jest": "^23.3.14",
+    "@types/lodash": "^4.14.149",
     "@types/mkdirp": "^0.5.2",
     "@types/mock-fs": "^3.6.30",
-    "@types/node": "^10.12.12",
+    "@types/node": "^10.17.19",
     "codecov": "^3.1.0",
-    "jest": "^25.0.0",
-    "mock-fs": "^4.7.0",
-    "semantic-release": "^15.13.24",
-    "travis-deploy-once": "^5.0.9",
+    "jest": "^25.3.0",
+    "mock-fs": "^4.11.0",
+    "semantic-release": "^15.14.0",
+    "travis-deploy-once": "^5.0.11",
     "ts-jest": "^23.10.5",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.17.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.2.2"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "lodash": "^4.17.15",
