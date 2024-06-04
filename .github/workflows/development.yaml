@@ -25,10 +25,10 @@ jobs:
           cache: 'npm'
       
       - name: Restore Dependencies
-        uses: npm ci
+        run: npm ci
       
       - name: Test
-        uses: npm run test
+        run: npm run test
 
       - name: Build
-        uses: npm run build
+        run: npm run build
