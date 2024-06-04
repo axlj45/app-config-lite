@@ -15,7 +15,7 @@ export class Configuration extends EventEmitter {
         try {
             this._data = this.configResolver.resolveConfig();
             this.emit('loaded', this._data.self_path);
-        } catch (err) {
+        } catch (err: any) {
             this.emit('error', err.message);
         }
     }
@@ -41,7 +41,7 @@ export class Configuration extends EventEmitter {
         try {
             writeFileSync(path, JSON.stringify(this._data, null, 2));
             this.emit('saved', this._data.self_path);
-        } catch (err) {
+        } catch (err: any) {
             this.emit('error', err.message);
         }
     }
