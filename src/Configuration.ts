@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { writeFileSync } from 'fs';
-import _ = require('lodash');
+import { get, set } from './utils'
 
 import { IConfigResolver } from './IConfigResolver';
 
@@ -21,19 +21,19 @@ export class Configuration extends EventEmitter {
     }
 
     set(path: string, value: any): any {
-        return _.set(this._data, path, value);
+        return set(this._data, path, value);
     }
 
     get(path: string): any {
         const envPath = path.toUpperCase().split('.').join('_');
 
-        const value = _.get(process.env, envPath);
+        const value = get(process.env, envPath);
         if (value) {
             this.emit('info', `Configuration value for ${envPath} overridden by environment.`);
             return value;
         }
 
-        return _.get(this._data, path);
+        return get(this._data, path);
     }
 
     save(): void {

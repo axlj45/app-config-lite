@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { join, resolve, dirname } from 'path';
-import * as mkdirp from 'mkdirp';
+import { mkdirpSync } from './utils'
 import { writeFileSync, readFileSync } from 'fs'
 
 import { IConfigResolver } from './IConfigResolver';
@@ -55,7 +55,7 @@ export class ConfigResolver extends EventEmitter implements IConfigResolver {
     }
 
     private createConfigFile(configPath: IPathDefinition) {
-        mkdirp.sync(dirname(configPath.path));
+        mkdirpSync(dirname(configPath.path));
 
         const defaultConfig = require.resolve('./example.json');
         const createdConfig = readFileSync(defaultConfig, 'utf8');
