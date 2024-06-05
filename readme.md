@@ -1,6 +1,6 @@
 # app-config-lite
 
-A simple library for loading application settings from the environment or a configuration file.
+A simple zero-dependency library for loading application settings from the environment or a configuration file.
 
 [![Build Status](https://travis-ci.org/axlj45/app-config-lite.svg?branch=master)](https://travis-ci.org/axlj45/app-config-lite)
 [![codecov](https://codecov.io/gh/axlj45/app-config-lite/branch/master/graph/badge.svg)](https://codecov.io/gh/axlj45/app-config-lite)
