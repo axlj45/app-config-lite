@@ -4,6 +4,7 @@
     "module": "commonjs",
     "declaration": true,
     "declarationDir": "dist/types",
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
