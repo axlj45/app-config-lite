@@ -51,4 +51,52 @@ describe('Config Resolver', () => {
         const path = sut.findOrGenerateConfig();
         expect(path).toContain('/home/xdg_home/.config');
     });
+
+    it('should emit an info event when generating a default config', () => {
+        const sut = new ConfigResolver('test-app');
+        const infos: string[] = [];
+        sut.on('info', (msg: string) => infos.push(msg));
+
+        sut.findOrGenerateConfig();
+
+        expect(infos.length).toBe(1);
+        expect(infos[0]).toContain('Creating default config file');
+    });
+
+    it('should prefer the XDG path over the default ./<app>/config.json path', () => {
+        process.env.XDG_CONFIG_HOME = '/home/xdg_home';
+        mockfs.restore();
+        mockfs({
+            '/home/xdg_home/test-app/config.json': JSON.stringify({ source: 'xdg' }),
+            './test-app/config.json': JSON.stringify({ source: 'default' }),
+        });
+
+        const sut = new ConfigResolver('test-app');
+        const path = sut.findConfig();
+        expect(path).toContain('/home/xdg_home/test-app/config.json');
+    });
+
+    describe('Windows path discovery', () => {
+        const originalPlatform = process.platform;
+
+        afterEach(() => {
+            Object.defineProperty(process, 'platform', { value: originalPlatform });
+            delete process.env.APPDATA;
+        });
+
+        it('should resolve a config file from APPDATA on win32', () => {
+            Object.defineProperty(process, 'platform', { value: 'win32' });
+            process.env.APPDATA = '/home/xdg_home'; // reuse existing mocked folder
+            mockfs.restore();
+            mockfs({
+                '/home/xdg_home': {},
+                './src/example.json': JSON.stringify({ configData: 'value' }),
+            });
+
+            const sut = new ConfigResolver('test-app');
+            const path = sut.findOrGenerateConfig();
+            expect(path).toContain('/home/xdg_home');
+            expect(path).toContain('test-app');
+        });
+    });
 });
