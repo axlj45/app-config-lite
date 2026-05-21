@@ -25,7 +25,9 @@ export function set<T>(obj: T, path: string, value: any): T {
         if (i === keys.length - 1) {
             current[key] = value;
         } else {
-            current[key] = current[key] || {};
+            if (typeof current[key] !== 'object' || current[key] === null) {
+                current[key] = {};
+            }
             current = current[key];
         }
     }

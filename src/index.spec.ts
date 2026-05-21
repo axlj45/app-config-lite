@@ -4,7 +4,7 @@ import mockfs = require('mock-fs');
 describe('Configuration', () => {
     beforeEach(() => {
         // Reset the singleton so test order doesn't affect outcomes.
-        (AppConfigLite as any)._instance = undefined;
+        AppConfigLite.reset();
 
         mockfs({
             'src/example.json': JSON.stringify({ "configData": "value" }),
@@ -132,6 +132,22 @@ describe('Configuration', () => {
             expect(infoMessages[0]).toContain('CONFIGDATA');
         });
 
+        it('should only emit the env override info event once per key', () => {
+            const sut = AppConfigLite.init('test-app');
+            sut.load();
+
+            const infoMessages: string[] = [];
+            sut.on('info', (msg: string) => infoMessages.push(msg));
+
+            process.env.CONFIGDATA = 'env_data';
+            sut.get('configData');
+            sut.get('configData');
+            sut.get('configData');
+            delete process.env.CONFIGDATA;
+
+            expect(infoMessages.length).toBe(1);
+        });
+
         it('should emit a saved event after a successful save', () => {
             const sut = AppConfigLite.init('test-app');
             sut.load();
@@ -191,9 +207,7 @@ describe('Configuration', () => {
     });
 
     describe('environment variable edge cases', () => {
-        it('should fall through to file value when env var is an empty string', () => {
-            // Documents current behavior: `if (value)` in Configuration.get
-            // treats empty strings as "not set" and returns the file value.
+        it('should let an empty-string env var override the file value', () => {
             const sut = AppConfigLite.init('test-app');
             sut.load();
 
@@ -201,12 +215,10 @@ describe('Configuration', () => {
             const result = sut.get('configData');
             delete process.env.CONFIGDATA;
 
-            expect(result).toBe('value');
+            expect(result).toBe('');
         });
 
-        it('should fall through to file value when env var is "0"', () => {
-            // Note: '0' is truthy as a string in JS, so this currently works
-            // as expected (env var wins). Asserts that string "0" overrides.
+        it('should let env var "0" override the file value', () => {
             const sut = AppConfigLite.init('test-app');
             sut.load();
 
@@ -215,6 +227,31 @@ describe('Configuration', () => {
             delete process.env.CONFIGDATA;
 
             expect(result).toBe('0');
+        });
+    });
+
+    describe('get() defaultValue', () => {
+        it('should return the provided default when the key is missing', () => {
+            const sut = AppConfigLite.init('test-app');
+            sut.load();
+            expect(sut.get('missing.key', 'fallback')).toBe('fallback');
+        });
+
+        it('should ignore the default when the key is present in the file', () => {
+            const sut = AppConfigLite.init('test-app');
+            sut.load();
+            expect(sut.get('configData', 'fallback')).toBe('value');
+        });
+
+        it('should ignore the default when an env var is set', () => {
+            const sut = AppConfigLite.init('test-app');
+            sut.load();
+
+            process.env.MISSING_KEY = 'from_env';
+            const result = sut.get('missing.key', 'fallback');
+            delete process.env.MISSING_KEY;
+
+            expect(result).toBe('from_env');
         });
     });
 
@@ -236,6 +273,14 @@ describe('Configuration', () => {
 
             expect(AppConfigLite.Instance).toBe(second);
             expect(AppConfigLite.Instance).not.toBe(first);
+        });
+
+        it('reset() should clear the singleton', () => {
+            AppConfigLite.init('test-app');
+            expect(AppConfigLite.Instance).toBeDefined();
+
+            AppConfigLite.reset();
+            expect(AppConfigLite.Instance).toBeUndefined();
         });
     });
 });

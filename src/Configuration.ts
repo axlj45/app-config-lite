@@ -6,6 +6,7 @@ import { IConfigResolver } from './IConfigResolver';
 
 export class Configuration extends EventEmitter {
     private _data: any = {};
+    private _envOverrideNotified: Set<string> = new Set();
 
     constructor(private configResolver: IConfigResolver) {
         super();
@@ -24,16 +25,19 @@ export class Configuration extends EventEmitter {
         return set(this._data, path, value);
     }
 
-    get(path: string): any {
+    get(path: string, defaultValue?: any): any {
         const envPath = path.toUpperCase().split('.').join('_');
 
         const value = get(process.env, envPath);
-        if (value) {
-            this.emit('info', `Configuration value for ${envPath} overridden by environment.`);
+        if (value !== undefined) {
+            if (!this._envOverrideNotified.has(envPath)) {
+                this._envOverrideNotified.add(envPath);
+                this.emit('info', `Configuration value for ${envPath} overridden by environment.`);
+            }
             return value;
         }
 
-        return get(this._data, path);
+        return get(this._data, path, defaultValue);
     }
 
     save(): void {

@@ -1,6 +1,6 @@
 export interface IConfigResolver {
-    findOrGenerateConfig(): string | undefined;
+    findOrGenerateConfig(): string;
     findConfig(): string | undefined;
     resolveConfig(): any;
-    getOrGenerateConfig(): string | undefined;
+    getOrGenerateConfig(): string;
 }

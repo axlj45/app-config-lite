@@ -13,4 +13,8 @@ export class AppConfigLite {
     public static get Instance(): Configuration | undefined {
         return this._instance;
     }
+
+    public static reset(): void {
+        this._instance = undefined;
+    }
 }
