@@ -1,5 +1,5 @@
 import { AppConfigLite } from './index';
-import * as mockfs from 'mock-fs';
+import mockfs = require('mock-fs');
 
 describe('Configuration', () => {
     beforeEach(() => {

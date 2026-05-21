@@ -1,8 +1,8 @@
-import * as mockfs from 'mock-fs';
+import mockfs = require('mock-fs');
 
 import { ConfigResolver } from './ConfigResolver';
 
-describe.skip('Config Resolver', () => {
+describe('Config Resolver', () => {
     beforeEach(() => {
         mockfs({
             '/home/xdg_home': {},
