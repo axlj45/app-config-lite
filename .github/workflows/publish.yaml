@@ -1,44 +1,60 @@
 name: Build
+
 permissions:
-  contents: read
+  contents: write
+  issues: write
   pull-requests: write
+  id-token: write
 
 on:
-  push: 
-    branches: 'main'
+  push:
+    branches: [main, next]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: [ubuntu-latest]
-  
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [22.x]
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+          persist-credentials: false
+
       - name: Set up Node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Restore Dependencies
         run: npm ci
-      
+
       - name: Test
         run: npm run test
 
       - name: Build
         run: npm run build
 
-      - name: Publish
+      - name: Verify semantic-release auth
+        run: npx semantic-release --dry-run --debug
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Release
         run: npm run semantic-release
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
