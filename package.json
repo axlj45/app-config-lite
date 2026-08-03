@@ -71,7 +71,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "jest": "^30.4.2",
     "mock-fs": "^5.4.1",
-    "semantic-release": "~25.0.3",
+    "semantic-release": "~25.0.8",
     "ts-jest": "^29.4.11",
     "typescript": "^6.0.3"
   }
